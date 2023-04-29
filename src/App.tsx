@@ -12,11 +12,16 @@ const DEFAULT_TODO_LIST = [
 
 function App() {
   const [todos, setTodos] = useState(DEFAULT_TODO_LIST)
+
+  const addTodo = ({ name, description }: Omit<Todo, "id" | "checked">) => {
+    setTodos([...todos, { id: todos[todos.length - 1].id + 1, description, name, checked: false }])
+  }
+
   return (
     <div className={style.app_container}>
       <div className={style.container}>
         <Header todoCount={todos.length} />
-        <TodoPanel />
+        <TodoPanel addTodo={addTodo}/>
       </div>
     </div>
   );
