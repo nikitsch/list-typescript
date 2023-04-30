@@ -1,0 +1,25 @@
+.todo_item_container {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 25px 20px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.todo_item_title {
+  margin-bottom: 15px;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.todo_item_description {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.todo_item_button_container {
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+}
