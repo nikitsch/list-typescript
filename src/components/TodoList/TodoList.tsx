@@ -8,13 +8,18 @@ interface TodoListProps {
   checkTodo: (id: Todo["id"]) => void
   deleteTodo: (id: Todo["id"]) => void
   selectTodoIdForEdit: (id: Todo["id"]) => void
+  changeTodo: ({ name, description }: Omit<Todo, "id" | "checked">) => void;
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todos, todoIdForEdit, checkTodo, deleteTodo, selectTodoIdForEdit }) => (
+export const TodoList: React.FC<TodoListProps> = ({ todos, todoIdForEdit, checkTodo, deleteTodo, selectTodoIdForEdit, changeTodo }) => (
   <div>
     {todos.map((todo) => {
-      //@ts-ignore
-      if (todo.id === todoIdForEdit) return <TodoPanel />
+      if (todo.id === todoIdForEdit) return (
+        <TodoPanel key={todo.id}
+          mode="edit"
+          ediTodo={{ name: todo.name, description: todo.description }}
+          changeTodo={changeTodo} />
+      )
       return (
         <TodoItem key={todo.id}
           todo={todo}

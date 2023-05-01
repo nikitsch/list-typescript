@@ -25,7 +25,9 @@ function App() {
 
   const checkTodo = (id: Todo["id"]) => {
     setTodos(todos.map(todo => {
-      if (todo.id === id) return { ...todo, checked: !todo.checked }
+      if (todo.id === id) {
+        return { ...todo, checked: !todo.checked }
+      }
       return todo
     }))
   }
@@ -34,16 +36,27 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  const changeTodo = ({ name, description }: Omit<Todo, "id" | "checked">) => {
+    setTodos(todos.map(todo => {
+      if (todo.id === todoIdForEdit) {
+        return { ...todo, name, description }
+      }
+      return todo
+    }))
+    setTodoIdForEdit(null)
+  }
+
   return (
     <div className={style.app_container}>
       <div className={style.container}>
         <Header todoCount={todos.length} />
-        <TodoPanel addTodo={addTodo} />
+        <TodoPanel addTodo={addTodo} mode="add" />
         <TodoList todos={todos}
           todoIdForEdit={todoIdForEdit}
           checkTodo={checkTodo}
           deleteTodo={deleteTodo}
-          selectTodoIdForEdit={selectTodoIdForEdit} />
+          selectTodoIdForEdit={selectTodoIdForEdit}
+          changeTodo={changeTodo} />
       </div>
     </div>
   );
